@@ -19,10 +19,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState= MENU_STATE;
 	
 	Font titleFont;
+	Font bodyFont;
 //////////////////////////////////
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
+		bodyFont = new Font("Arial", Font.PLAIN, 32);
 	}
 	public void updateMenuState() {
 		
@@ -37,11 +39,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT); 
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		
-		g.setFont(titleFont);
-		 g.drawString("text", 35, 35);
-		 g.setColor(Color.BLACK);
+		 g.setColor(Color.YELLOW);
+		 g.setFont(titleFont);
+		 g.drawString("LEAGUE INVADERS", 25, 105);
+		 
+		 g.setColor(Color.YELLOW);
+		 g.setFont(bodyFont);
+		 g.drawString("Press ENTER to start", 65, 305);
+		 
+		 g.setColor(Color.YELLOW);
+			g.setFont(bodyFont);
+			 g.drawString("Press space for instructions", 65, 505);
+		
 	}	
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
