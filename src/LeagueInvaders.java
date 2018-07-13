@@ -30,6 +30,6 @@ public class LeagueInvaders {
 		LeagueInvaders li = new LeagueInvaders();
 
 		li.setup();
-		
+
 	}
 }
