@@ -22,10 +22,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font bodyFont;
 
 	Rocketship rocketship;
-	
+
 	ObjectManager objectManager;
 
-	//////////////////////////////////
+	////////////////////////////////// constructor
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void updateGameState() {
 		objectManager.update();
-		
+
 	}
 
 	public void updateEndState() {
@@ -93,6 +93,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateMenuState();
 		} else if (currentState == GAME_STATE) {
 			updateGameState();
+		
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
@@ -133,6 +134,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = MENU_STATE;
 			}
 		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			objectManager.addProjectile(new Projectile(rocketship.x, rocketship.y, 10, 10));
+		}
+			
+		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			rocketship.x -= rocketship.speed;
 		}
