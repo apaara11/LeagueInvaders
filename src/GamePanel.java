@@ -40,6 +40,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void updateGameState() {
 		objectManager.update();
+		objectManager.manageEnemies();
 
 	}
 
@@ -117,7 +118,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer.start();
 	}
 
-	// _______________________________________________
+	// _______________________________________________//
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -136,7 +137,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			objectManager.addProjectile(new Projectile(rocketship.x, rocketship.y, 10, 10));
+			objectManager.addProjectile(new Projectile(rocketship.x+24, rocketship.y, 10, 10));
 		}
 			
 		
