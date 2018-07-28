@@ -50,19 +50,29 @@ public class ObjectManager {
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
-	
+
 	public void purgeObjects() {
-		for(int i=0; i< projectiles.size();i++) {
-			if(!projectiles.get(i).isAlive) {
+		for (int i = 0; i < projectiles.size(); i++) {
+			if (!projectiles.get(i).isAlive) {
 				projectiles.remove(i);
 			}
 		}
-		for(int i=0; i<aliens.size();i++) {
-			if(!aliens.get(i).isAlive) {
+		for (int i = 0; i < aliens.size(); i++) {
+			if (!aliens.get(i).isAlive) {
 				aliens.remove(i);
 			}
 		}
-		
+	}
+
+	public void checkCollision() {
+		for (Aliens a : aliens) {
+			if (rocketship.collisionBox.intersects(a.collisionBox)) {
+				rocketship.isAlive = false;
+			}
+		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles.get(i);
+		}
 	}
 
 }
