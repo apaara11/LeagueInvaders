@@ -41,6 +41,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void updateGameState() {
 		objectManager.update();
 		objectManager.manageEnemies();
+		objectManager.checkCollision();
+		objectManager.purgeObjects();
+		
+		if(rocketship.isAlive == false) {
+			currentState = END_STATE;
+		}
 
 	}
 
@@ -84,6 +90,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.setFont(bodyFont);
 		g.drawString("Press ENTER to restart", 65, 305);
+		
+	//.	objectManager.getScore(g.draw)
 	}
 
 	@Override
