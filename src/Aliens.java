@@ -20,9 +20,7 @@ public class Aliens extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(x, y, width, height);
-		g.drawRect(x, y, width, height);
+		g.drawImage(GamePanel.alienImg, x, y, width, height, null);
 		
 	}
 }

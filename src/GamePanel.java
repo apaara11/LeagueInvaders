@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -25,6 +28,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	ObjectManager objectManager;
 
+	public static BufferedImage alienImg;
+	public static BufferedImage rocketImg;
+	public static BufferedImage bulletImg;
+	public static BufferedImage spaceImg;
+
 	////////////////////////////////// constructor
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
@@ -32,6 +40,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		bodyFont = new Font("Arial", Font.PLAIN, 32);
 		rocketship = new Rocketship(250, 700, 50, 50);
 		objectManager = new ObjectManager(rocketship);
+
+		try {
+
+			alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+			rocketImg = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+			bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+			spaceImg = ImageIO.read(this.getClass().getResourceAsStream("space.png"));
+		} catch (IOException e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+		}
+
 	}
 
 	public void updateMenuState() {
@@ -43,8 +65,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		objectManager.manageEnemies();
 		objectManager.checkCollision();
 		objectManager.purgeObjects();
-		
-		if(rocketship.isAlive == false) {
+
+		if (rocketship.isAlive == false) {
 			currentState = END_STATE;
 		}
 
@@ -73,8 +95,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawGameState(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.drawImage(GamePanel.spaceImg, WIDTH, HEIGHT, null);
 
 		objectManager.draw(g);
 	}
@@ -90,8 +111,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.setFont(bodyFont);
 		g.drawString("Press ENTER to restart", 65, 305);
-		
-	//.	objectManager.getScore(g.draw)
+
+		g.drawString("You killed " + objectManager.getScore() + " enemies", 105, 355);
+
 	}
 
 	@Override
@@ -102,7 +124,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateMenuState();
 		} else if (currentState == GAME_STATE) {
 			updateGameState();
-		
+
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
@@ -131,24 +153,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("LeagueInvaders");
+		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("LeagueInvaders");
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	/*	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState++;
 			if (currentState > END_STATE) {
 				currentState = MENU_STATE;
+			} else if (currentState == END_STATE) {
+				rocketship = new Rocketship(250, 700, 50, 50);
+				//objectManager = new ObjectManager(rocketship);
 			}
-		}
-		
+		} */
+
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			objectManager.addProjectile(new Projectile(rocketship.x+24, rocketship.y, 10, 10));
+			objectManager.addProjectile(new Projectile(rocketship.x + 24, rocketship.y, 10, 10));
 		}
-			
-		
+
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			rocketship.x -= rocketship.speed;
 		}
@@ -168,6 +194,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("LeagueInvaders+");
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			currentState++;
+			if (currentState > END_STATE) {
+				currentState = MENU_STATE;
+			} else if (currentState == END_STATE) {
+				rocketship = new Rocketship(250, 700, 50, 50);
+				objectManager = new ObjectManager(rocketship);
+			}
+		}
 	}
 
 }

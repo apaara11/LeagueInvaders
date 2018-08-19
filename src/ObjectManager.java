@@ -17,6 +17,7 @@ public class ObjectManager {
 	}
 	
 	public int getScore() {
+		System.out.println(this.score);
 		return this.score;
 	}
 
@@ -54,7 +55,9 @@ public class ObjectManager {
 				//projectiles.get(i);
 				if( aliens.get(j).collisionBox.intersects(projectiles.get(i).collisionBox)) {
 					aliens.get(i).isAlive = false;
+					projectiles.get(i).isAlive = false;
 					score++;
+					//System.out.println(score);
 				}
 			}
 			//if (rocketship.collisionBox.intersects(a.collisionBox)) {
