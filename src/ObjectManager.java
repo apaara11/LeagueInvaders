@@ -54,7 +54,7 @@ public class ObjectManager {
 			for (int i = 0; i < projectiles.size(); i++) {
 				//projectiles.get(i);
 				if( aliens.get(j).collisionBox.intersects(projectiles.get(i).collisionBox)) {
-					aliens.get(i).isAlive = false;
+					aliens.get(j).isAlive = false;
 					projectiles.get(i).isAlive = false;
 					score++;
 					//System.out.println(score);
